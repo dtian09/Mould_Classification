@@ -1,7 +1,21 @@
 # Mould Classification and Segmentation
 
-This repository contains scripts and tools for mould detection, classification, and segmentation using deep learning (ViT and U-Net) in PyTorch.
+This repository contains scripts and tools for building mould area coverage classification, and segmentation using deep learning (ViT and U-Net) in PyTorch.
+- dataset: [YOLOv7 data set of Mould Detection Single Label Computer Vision Project](https://universe.roboflow.com/research-placement/mould-detection-single-label)
+- For each image, the **total normalized mould area** is calculated as the sum of the areas of all bounding boxes in YOLO label files:
 
+  \[
+  \text{Total Mould Area} = \sum_{i=1}^{N} (\text{width}_i \times \text{height}_i)
+  \]
+  
+  where `width` and `height` are the normalized values (between 0 and 1) from each bounding box line in the YOLO label file; N is the number of mould areas in the image.
+
+**Area categories:**
+- `0`: normal (no mould)
+- `1`: small or medium (0 < area ≤ 0.15)
+- `2`: large (0.15 < area ≤ 0.3)
+- `3`: extra large (area > 0.3)  
+      
 ## Project Structure
 
 - `generate_masks_from_yolo.py`  
@@ -35,8 +49,8 @@ This repository contains scripts and tools for mould detection, classification, 
 
 ## Data
 
-- Place your YOLO-format images and labels in the appropriate folders as referenced in the scripts.
-- Segmentation masks will be generated in the `segmentation/` or `segmentation_masks/` directories.
+- Place your YOLOv7 dataset folder in the folder `Mould_Classification_Segmentation/`.
+- Segmentation masks will be generated in the `segmentation_masks/` directories.
 
 ## Usage
 
@@ -79,7 +93,3 @@ This repository contains scripts and tools for mould detection, classification, 
 
 - Masks: **Black = normal, White = mould**.
 - Adjust paths and parameters in each script as needed for your dataset.
-
----
-
-**Dependencies:** See

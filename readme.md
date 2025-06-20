@@ -30,16 +30,16 @@ This repository contains scripts and tools for building mould area coverage clas
 - `train_test.py`  
   Train and evaluate a ViT classifier with early stopping and class balancing.
 
-- `generate_masks_from_yolo.py`  
+- `generate_masks_from_yolo.py`    
   Generate binary segmentation masks from YOLO-format bounding box labels.
 
-- `train_unet_segmentation.py`  
+- `train_unet_segmentation.py`    
   Train a U-Net model for mould segmentation.
 
 - `visualize_unet_segmentation.py`  
   Visualize U-Net segmentation predictions vs. ground truth.
 
-- `combine_vit_unet_mcp.py`
+- `combine_vit_unet_mcp.py`  
   Implement the logic of Model Contextual Protocol (MCP) to contextualize U-Net segmentation with Vit classification in order to produce a combined segmentation output (segmentation mask).
   
 ## Installation

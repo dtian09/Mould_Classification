@@ -3,18 +3,15 @@ mould area coverage classification by total normalized area.
 Calculate the normalized total mould area for each image (sum of width × height for all regions).
 Assign a category based on the total area using these thresholds:
 0: normal (no mould)
-1: small (0 < area ≤ 0.05)
-2: medium (0.05 < area ≤ 0.15)
-3: large (0.15 < area ≤ 0.3)
-4: extra large (area > 0.3)
+1: small or medium (0 < area ≤ 0.15)
+2: large (0.15 < area ≤ 0.3)
+3: extra large (area > 0.3)
 '''
 import os
 
 def get_area_category(area):
     if area == 0:
         return '0'  # 0: normal (no mould)
-    #elif area <= 0.05:
-    #    return '1'  # 1: small
     elif area <= 0.15:
         return '1'  # 1: small or medium
     elif area <= 0.3:

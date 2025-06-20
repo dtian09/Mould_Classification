@@ -1,7 +1,9 @@
 from collections import Counter
 
-label_file = "train_mould_size_labels.txt"
-
+label_file = "train_mould_area_labels.txt"
+#label_file = "test_mould_area_labels.txt"
+#label_file = "valid_mould_area_labels.txt"
+#label_file = "train_mould_area_labels_oversampled.txt"
 class_counts = Counter()
 with open(label_file, "r") as f:
     for line in f:

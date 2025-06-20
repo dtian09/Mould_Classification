@@ -38,6 +38,9 @@ This repository contains scripts and tools for building mould area coverage clas
 
 - `visualize_unet_segmentation.py`  
   Visualize U-Net segmentation predictions vs. ground truth.
+
+- `combine_vit_unet_mcp.py`
+  Implement the logic of Model Contextual Protocol (MCP) to contextualize U-Net segmentation with Vit classification in order to produce a combined segmentation output (segmentation mask).
   
 ## Installation
 
@@ -73,9 +76,10 @@ This repository contains scripts and tools for building mould area coverage clas
   ```
   python train_test.py
   ```
+  
 ## Usage: Building Mould Segmentation Using U-Net
 
-- Step 1: **Generate masks:**  
+- Step 1: **Generate segmentation masks:**  
   ```
   python generate_masks_from_yolo.py
   ```
@@ -89,6 +93,12 @@ This repository contains scripts and tools for building mould area coverage clas
   ```
   python visualize_unet_segmentation.py
   ```
+  
+## Usage: Combined Segmentation Mask
+
+```
+python combine_vit_unet_mcp.py
+```
 
 ## Notes
 

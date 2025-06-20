@@ -1,6 +1,6 @@
-# Mould Classification and Segmentation
+# Building Mould Area Coverage Classification and Segmentation
 
-This repository contains scripts and tools for building mould area coverage classification, and segmentation using deep learning (ViT and U-Net) in PyTorch.
+This repository contains scripts and tools for building mould area coverage classification, and segmentation using deep learning (**ViT** and **U-Net**) in PyTorch.
 - dataset: [YOLOv7 data set of Mould Detection Single Label Computer Vision Project](https://universe.roboflow.com/research-placement/mould-detection-single-label)
 - For each image, the **total normalized mould area** is calculated as the sum of the areas of all bounding boxes in YOLO label files:
 
@@ -16,16 +16,7 @@ This repository contains scripts and tools for building mould area coverage clas
 - `2`: large (0.15 < area ≤ 0.3)
 - `3`: extra large (area > 0.3)  
       
-## Project Structure
-
-- `generate_masks_from_yolo.py`  
-  Generate binary segmentation masks from YOLO-format bounding box labels.
-
-- `train_unet_segmentation.py`  
-  Train a U-Net model for mould segmentation.
-
-- `visualize_unet_segmentation.py`  
-  Visualize U-Net segmentation predictions vs. ground truth.
+## Code
 
 - `label_mould_area.py`  
   Assign area-based class labels to images based on total mould coverage.
@@ -39,6 +30,15 @@ This repository contains scripts and tools for building mould area coverage clas
 - `train_test.py`  
   Train and evaluate a ViT classifier with early stopping and class balancing.
 
+- `generate_masks_from_yolo.py`  
+  Generate binary segmentation masks from YOLO-format bounding box labels.
+
+- `train_unet_segmentation.py`  
+  Train a U-Net model for mould segmentation.
+
+- `visualize_unet_segmentation.py`  
+  Visualize U-Net segmentation predictions vs. ground truth.
+  
 ## Installation
 
 1. Clone this repository.
@@ -49,42 +49,43 @@ This repository contains scripts and tools for building mould area coverage clas
 
 ## Data
 
-- Place your YOLOv7 dataset folder in the folder `Mould_Classification_Segmentation/`.
+- Place your [YOLOv7 dataset](https://universe.roboflow.com/research-placement/mould-detection-single-label) folder in the folder `Mould_Classification_Segmentation/`.
 - Segmentation masks will be generated in the `segmentation_masks/` directories.
 
-## Usage
+## Usage: Building Mould Area Coverage Classification Using Vision Transformer (ViT)
 
-- **Generate masks:**  
-  ```
-  python generate_masks_from_yolo.py
-  ```
-
-- **Label images by mould area:**  
+- Step 1: **Label images by mould area:**  
   ```
   python label_mould_area.py
   ```
-
-- **Oversample training set:**  
+  
+- Step 2: **Count class distribution:**  
+  ```
+  python count_classes.py
+  ```
+  
+- Step 3: **Oversample training set:**  
   ```
   python oversample_train_set.py
   ```
 
-- **Count class distribution:**  
-  ```
-  python count_classes.py
-  ```
-
-- **Train/test ViT classifier:**  
+- Step 4: **Train/test ViT classifier:**  
   ```
   python train_test.py
   ```
-  
-- **Train U-Net segmentation:**  
+## Usage: Building Mould Segmentation Using U-Net
+
+- Step 1: **Generate masks:**  
+  ```
+  python generate_masks_from_yolo.py
+  ```
+    
+- Step 2: **Train U-Net segmentation:**  
   ```
   python train_unet_segmentation.py
   ```
 
-- **Visualize segmentation:**  
+- Step 3: **Visualize segmentation:**  
   ```
   python visualize_unet_segmentation.py
   ```

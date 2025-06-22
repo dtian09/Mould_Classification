@@ -112,25 +112,32 @@ This project includes a web application with a React frontend and FastAPI backen
     pip install -r requirements.txt
     ```
 
-2. Run the FastAPI backend:
+2. Create the React project (if not already present):
+    ```
+    npx create-react-app frontend
+    ```
+    This will create a new React app in the `frontend/` directory.
+
+3. Start the FastAPI backend:
     ```
     uvicorn app:app --host 0.0.0.0 --port 8000 --reload
     ```
 
-3. Start the React frontend (see the `frontend/` or your React app directory):
+4. Start the React frontend:
     ```
+    cd frontend
     npm install
     npm start
     ```
     By default, React runs on port 3000. Make sure to configure CORS or proxy settings if needed.
 
-4. Open your browser and go to:
+5. Open your browser and go to:
     ```
     http://localhost:3000
     ```
     Or use your server's IP address if running remotely.
 
-5. Upload a building image. The app will display the ViT predicted class and the combined mask result.
+6. Upload a building image. The app will display the ViT predicted class and the combined mask result.
 
 ## Notes
 

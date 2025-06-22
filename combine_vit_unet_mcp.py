@@ -42,23 +42,18 @@ def load_unet_model(weights_path, device, init_features=32):
     model.eval()
     return model
 
-def main():
-    # Paths and parameters
-    # Use a training image as input
-    image_path = "Mould detection single label.v12-phase-1-yolov11.yolov7pytorch/train/images/_-2-_png_jpg.rf.1a5236a0de954b10e6af5959920dcd80.jpg"
-    unet_weights = "best_unet_mould.pth"
-    vit_weights = "best_vit_mould.pth"
+def run_mcp_on_image(image_path, unet_weights, vit_weights, output_path="combined_mask_with_label.png", image_size=128):
+    """
+    Run MCP pipeline on a single image and save the output visualization.
+    Returns the ViT class index and label.
+    """
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    image_size = 128
-
-    # Class labels
     class_labels = {
         0: "Normal (No Mould)",
         1: "Small/Medium Mould",
         2: "Large Mould",
         3: "Extra Large Mould"
     }
-
     # Load models
     vit_model = load_vit_model(vit_weights, device)
     unet_model = load_unet_model(unet_weights, device)
@@ -104,17 +99,24 @@ def main():
     axs[1].imshow(mask_disp, cmap='gray')
     axs[1].set_title("U-Net Predicted Mask")
     axs[1].axis('off')
-    # Add ViT class label at the bottom of the mask subplot
     axs[1].text(
         0.5, -0.12, f"ViT: {class_labels[vit_class]}",
         fontsize=12, color='black', ha='center', va='top', transform=axs[1].transAxes
     )
     plt.tight_layout()
-    plt.savefig("combined_mask_with_label.png")
-    plt.show()
+    plt.savefig(output_path)
+    plt.close(fig)
+    return vit_class, class_labels[vit_class]
 
-    print(f"ViT predicted class: {vit_class} ({class_labels[vit_class]})")
-    print("Combined mask with label saved as combined_mask_with_label.png")
+def main():
+    # Example usage
+    image_path = "Mould detection single label.v12-phase-1-yolov11.yolov7pytorch/train/images/_-2-_png_jpg.rf.1a5236a0de954b10e6af5959920dcd80.jpg"
+    unet_weights = "best_unet_mould.pth"
+    vit_weights = "best_vit_mould.pth"
+    output_path = "combined_mask_with_label.png"
+    vit_class, vit_label = run_mcp_on_image(image_path, unet_weights, vit_weights, output_path)
+    print(f"ViT predicted class: {vit_class} ({vit_label})")
+    print(f"Combined mask with label saved as {output_path}")
 
 if __name__ == "__main__":
     main()

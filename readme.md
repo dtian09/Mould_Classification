@@ -43,7 +43,7 @@ This repository contains scripts and tools for building mould area coverage clas
   Implement the logic of Model Contextual Protocol (MCP) to contextualize U-Net segmentation with Vit classification in order to produce a combined segmentation output (segmentation mask).
 
 - `app.py`  
-  FastAPI web app for uploading a building image, running the MCP pipeline, and displaying the ViT class prediction and combined mask result in a browser.
+  FastAPI web app for uploading a building image, running the MCP pipeline, and displaying the ViT class prediction and combined mask result in a browser. Uses FastAPI and Uvicorn for the backend, and React for the interactive frontend.
   
 ## Installation
 
@@ -105,24 +105,32 @@ python combine_vit_unet_mcp.py
 
 ## Web App Usage
 
+This project includes a web application with a React frontend and FastAPI backend.
+
 1. Install dependencies:
     ```
-    pip install fastapi uvicorn
+    pip install -r requirements.txt
     ```
-    (Also ensure all requirements in `requirements.txt` are installed.)
 
-2. Run the web app:
+2. Run the FastAPI backend:
     ```
     uvicorn app:app --host 0.0.0.0 --port 8000 --reload
     ```
 
-3. Open your browser and go to:
+3. Start the React frontend (see the `frontend/` or your React app directory):
     ```
-    http://localhost:8000
+    npm install
+    npm start
+    ```
+    By default, React runs on port 3000. Make sure to configure CORS or proxy settings if needed.
+
+4. Open your browser and go to:
+    ```
+    http://localhost:3000
     ```
     Or use your server's IP address if running remotely.
 
-4. Upload a building image. The app will display the ViT predicted class and the combined mask result.
+5. Upload a building image. The app will display the ViT predicted class and the combined mask result.
 
 ## Notes
 

@@ -1,5 +1,5 @@
 from fastapi import FastAPI, File, UploadFile, Request
-from fastapi.responses import HTMLResponse, FileResponse
+from fastapi.responses import HTMLResponse, FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 import shutil
 import os
@@ -47,21 +47,10 @@ async def upload_image(file: UploadFile = File(...)):
     file_location = os.path.join(UPLOAD_DIR, file.filename)
     with open(file_location, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
-    # Run MCP code
-    vit_label = run_mcp_on_image(file_location)
-    # Display result
-    return f"""
-    <html>
-        <head>
-            <title>Mould Detection Result</title>
-        </head>
-        <body>
-            <h2>Result</h2>
-            <p>ViT Predicted Class: {vit_label}</p>
-            <img src="/static/combined_mask_with_label.png" alt="Combined Mask with Label" style="max-width:512px;">
-            <br><a href="/">Try another image</a>
-        </body>
-    </html>
-    """
+    vit_class, vit_label = run_mcp_on_image(file_location)
+    return JSONResponse({
+        "vit_label": vit_label,
+        "mask_url": "/static/combined_mask_with_label.png"
+    })
 
 # To run: uvicorn app:app --reload
